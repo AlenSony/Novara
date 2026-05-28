@@ -121,7 +121,7 @@ function DeviceRow({ device, onSave, onDelete, onAddVariant }) {
         <div className="admin-row__img-wrap">
           {device.image_url
             ? <img src={device.image_url} alt={device.name} className="admin-row__img" />
-            : <span className="admin-row__no-img">📱</span>}
+            : <span className="admin-row__no-img" style={{ fontSize: "0.6rem", border: "1px solid #000", padding: "4px", textAlign: "center", lineHeight: "1.2" }}>NO IMAGE<br />AVAILABLE</span>}
         </div>
         <div className="admin-row__info">
           <span className="admin-row__name">{device.name}</span>
@@ -213,7 +213,7 @@ function DeviceRow({ device, onSave, onDelete, onAddVariant }) {
   return (
     <div className="admin-row admin-row--editing admin-row--variant-mode">
       <div className="variant-form-header">
-        <span className="variant-form-header__icon">🔀</span>
+        <span className="variant-form-header__icon">+</span>
         <div>
           <span className="variant-form-header__title">Add a variant of</span>
           <strong className="variant-form-header__base">{baseName}</strong>
@@ -522,10 +522,10 @@ function ProfilePage() {
   );
 
   const tabs = [
-    { id: 'profile', label: 'My Profile', icon: '👤' },
+    { id: 'profile', label: 'MY PROFILE', icon: '' },
     ...(userRole === 'admin' ? [
-      { id: 'devices', label: 'Devices', icon: '📱' },
-      { id: 'admins', label: 'Admins', icon: '🛡️' },
+      { id: 'devices', label: 'DEVICES', icon: '' },
+      { id: 'admins', label: 'ADMINS', icon: '' },
     ] : [])
   ];
 
@@ -565,12 +565,12 @@ function ProfilePage() {
               </button>
             ))}
             <button className="sidebar-nav-item sidebar-nav-item--orders" onClick={() => navigate('/orders')}>
-              <span className="nav-icon">📦</span>
-              <span className="nav-label">My Orders</span>
+              <span className="nav-icon"></span>
+              <span className="nav-label">MY ORDERS</span>
             </button>
           </nav>
           <button className="sidebar-logout-btn" onClick={handleLogout}>
-            <span>⏻</span> Logout
+            LOGOUT
           </button>
         </aside>
 
@@ -622,7 +622,7 @@ function ProfilePage() {
                     <p className="panel-subtitle">{products.length} product{products.length !== 1 ? 's' : ''} in catalogue</p>
                   </div>
                   <button className="btn btn--primary" onClick={() => setShowAddDevice(v => !v)}>
-                    {showAddDevice ? '✕ Cancel' : '+ Add Device'}
+                    {showAddDevice ? 'CANCEL' : '+ ADD DEVICE'}
                   </button>
                 </div>
               </div>
@@ -706,14 +706,14 @@ function ProfilePage() {
 
               {/* ── Search bar ── */}
               <div className="list-search">
-                <span className="list-search__icon">🔍</span>
+                <span className="list-search__icon"></span>
                 <input
                   className="list-search__input"
                   placeholder="Search by name or company…"
                   value={productSearch}
                   onChange={e => setProductSearch(e.target.value)}
                 />
-                {productSearch && <button className="list-search__clear" onClick={() => setProductSearch('')}>✕</button>}
+                {productSearch && <button className="list-search__clear" onClick={() => setProductSearch('')}>CLEAR</button>}
               </div>
 
               {/* ── Product list ── */}
@@ -743,7 +743,7 @@ function ProfilePage() {
                     <p className="panel-subtitle">{admins.length} admin{admins.length !== 1 ? 's' : ''} currently active</p>
                   </div>
                   <button className="btn btn--primary" onClick={() => setShowAddAdmin(v => !v)}>
-                    {showAddAdmin ? '✕ Cancel' : '+ Grant Admin'}
+                    {showAddAdmin ? 'CANCEL' : '+ GRANT ADMIN'}
                   </button>
                 </div>
               </div>
@@ -767,14 +767,14 @@ function ProfilePage() {
 
               {/* ── Search bar ── */}
               <div className="list-search">
-                <span className="list-search__icon">🔍</span>
+                <span className="list-search__icon"></span>
                 <input
                   className="list-search__input"
                   placeholder="Search by name or email…"
                   value={adminSearch}
                   onChange={e => setAdminSearch(e.target.value)}
                 />
-                {adminSearch && <button className="list-search__clear" onClick={() => setAdminSearch('')}>✕</button>}
+                {adminSearch && <button className="list-search__clear" onClick={() => setAdminSearch('')}>CLEAR</button>}
               </div>
 
               {/* ── Admin list ── */}

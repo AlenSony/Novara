@@ -69,157 +69,161 @@ function MainPage() {
         }
     };
 
-    // Predefined list of major companies
-    const predefinedCompanies = [
-        'Apple',
-        'Samsung',
-        'Vivo',
-        'iQOO',
-        'OnePlus',
-        'Xiaomi',
-        'Redmi',
-        'Realme',
-        'Oppo',
-        'Nothing',
-        'Google',
-        'Motorola',
-        'Nokia',
-        'Sony',
-        'Asus',
-        'Honor'
+    // Lifestyle Personas
+    const lifestylePersonas = [
+        {
+            id: 'fps-grinder',
+            title: 'THE FPS GRINDER',
+            quote: "Wanna be a monster in gaming but can't find the right device?",
+            type: 'cross-device', // Enforces finding the highest-priced flagship and at least 1 phone + 1 laptop
+            keywords: [
+                'rog', 'iqoo', 'legion', 'alienware', 'msi', 'titan', 'omen', 'predator', 'gt',
+                'razer', 'blade', 'strix', 'zephyrus', 'tuf', 'nitro', 'g15', 'g16', 'black shark', 'redmagic'
+            ],
+        },
+        {
+            id: 'mobile-creative',
+            title: 'THE MOBILE CREATIVE',
+            quote: "Looking for a camera so good it feels like cheating.",
+            type: 'mobile-only', // Automatically locks out laptops, focusing strictly on high-end camera smartphones
+            keywords: [
+                'ultra', 'pro max', 'xperia', 'pixel', 'vivid', 'camera', 'lens', 'sensor', 'megapixel', 
+                'iphone', 'galaxy', 'optics', 'leica', 'zeiss', 'hassleblad', 'pro', 'zoom', 'photography'
+            ],
+        },
+        {
+            id: 'all-day-commuter',
+            title: 'THE ALL-DAY COMMUTER',
+            quote: "My battery needs to survive an international flight without a single tether.",
+            type: 'cross-device', // Evaluates ultra-efficient ultrabooks side-by-side with massive-capacity mobile phones
+            keywords: [
+                'air', 'nord', 'swift', 'thinkpad', 'zenbook', 'macbook air', 'y series',
+                'gram', 'galaxy book', 'surface laptop', 'latitude', 'elitebook', 'plus', 'max battery'
+            ],
+        },
+        {
+            id: 'premium-innovators',
+            title: 'THE PREMIUM INNOVATORS',
+            quote: "Demanding absolute hardware refinement, seamless ecosystems, and trendsetting design.",
+            type: 'cross-device', // Perfectly blends Samsung's premium laptop/phone ecosystem with Vivo's apex mobile hardware
+            keywords: [
+                'samsung', 'galaxy', 'vivo', 'v-series', 'x-series', 'fold', 'flip', 'book ultra', 'x100', 'v40'
+            ]
+        }
     ];
 
-    // Filter devices into phones and laptops
-    // Assuming phones don't have category 'Laptop' or 'laptop'
-    const phoneDevices = devices.filter(d => !d.category || (d.category !== 'Laptop' && d.category !== 'laptop'));
-    const laptopDevices = devices.filter(d => d.category === 'Laptop' || d.category === 'laptop');
+    const getDevicesForPersona = (persona) => {
+        const keywords = persona.keywords || [];
+        const isMobileOnly = persona.type === 'mobile-only' || persona.id === 'mobile-creative';
 
-    // Get unique companies from phone devices and merge with predefined list
-    const deviceCompanies = new Set(phoneDevices.map(d => d.company).filter(Boolean));
-    const allCompanies = ['all', ...predefinedCompanies, ...deviceCompanies].filter((value, index, self) =>
-        self.indexOf(value) === index
-    ).sort((a, b) => {
-        if (a === 'all') return -1;
-        if (b === 'all') return 1;
-        return a.localeCompare(b);
-    });
+        // 1. Dynamic Category Constraints & Multi-Field Matching
+        let matched = devices.filter(d => {
+            if (d.stock !== undefined && Number(d.stock) <= 0) return false;
 
-    // Predefined list of major laptop companies
-    const predefinedLaptopCompanies = [
-        'Apple', 'Dell', 'HP', 'Lenovo', 'Asus', 'Acer', 'Microsoft', 'Razer', 'MSI', 'Samsung', 'Alienware'
-    ];
+            const cat = (d.category || '').toLowerCase();
+            const isSmartphone = cat === 'smartphone' || cat === 'foldable smartphone';
 
-    // Get unique companies from laptop devices
-    const laptopDeviceCompanies = new Set(laptopDevices.map(d => d.company).filter(Boolean));
-    const allLaptopCompanies = ['all', ...predefinedLaptopCompanies, ...laptopDeviceCompanies].filter((value, index, self) =>
-        self.indexOf(value) === index
-    ).sort((a, b) => {
-        if (a === 'all') return -1;
-        if (b === 'all') return 1;
-        return a.localeCompare(b);
-    });
+            if (isMobileOnly && !isSmartphone) return false;
 
-    // Brand-specific keywords mapping for better matching
-    const brandKeywords = {
-        'apple': ['iphone', 'ipad', 'ipod', 'macbook', 'imac', 'apple'],
-        'samsung': ['galaxy', 'samsung', 'note', 's series', 'z fold', 'z flip'],
-        'vivo': ['vivo', 'x series', 'y series', 'v series'],
-        'iqoo': ['iqoo', 'neo', 'z series'],
-        'oneplus': ['oneplus', 'nord'],
-        'xiaomi': ['xiaomi', 'mi ', 'redmi note', 'poco'],
-        'redmi': ['redmi', 'note'],
-        'realme': ['realme', 'gt', 'narzo'],
-        'oppo': ['oppo', 'reno', 'find x'],
-        'nothing': ['nothing', 'phone'],
-        'google': ['pixel', 'google'],
-        'motorola': ['motorola', 'moto', 'edge', 'razr'],
-        'nokia': ['nokia'],
-        'sony': ['sony', 'xperia'],
-        'asus': ['asus', 'zenfone', 'rog phone'],
-        'honor': ['honor', 'magic', 'view'],
-        'dell': ['dell', 'xps', 'inspiron', 'latitude', 'alienware'],
-        'hp': ['hp', 'pavilion', 'spectre', 'envy', 'omen'],
-        'lenovo': ['lenovo', 'thinkpad', 'ideapad', 'yoga', 'legion'],
-        'acer': ['acer', 'aspire', 'predator', 'swift'],
-        'microsoft': ['surface'],
-        'razer': ['razer', 'blade'],
-        'msi': ['msi', 'titan', 'raider', 'stealth']
-    };
+            const name = (d.name || '').toLowerCase();
+            const company = (d.company || '').toLowerCase();
+            const desc = (d.description || '').toLowerCase();
 
-    // Helper function to check if device matches company (case-insensitive, checks both company field and device name)
-    const deviceMatchesCompany = (device, companyName) => {
-        if (!companyName || companyName === 'all') return true;
+            return keywords.some(k =>
+                name.includes(k) ||
+                company.includes(k) ||
+                desc.includes(k) ||
+                cat.includes(k)
+            );
+        });
 
-        const companyLower = companyName.toLowerCase();
-        const deviceCompany = (device.company || '').toLowerCase();
-        const deviceName = (device.name || '').toLowerCase();
+        // 2. Safe Fallback Catch: If a mobile-only persona yields 0 matches, back out the strict constraint
+        if (isMobileOnly && matched.length === 0) {
+            matched = devices.filter(d => {
+                if (d.stock !== undefined && Number(d.stock) <= 0) return false;
 
-        // First check exact match in company field
-        if (deviceCompany === companyLower || deviceCompany.includes(companyLower)) {
-            return true;
+                const name = (d.name || '').toLowerCase();
+                const company = (d.company || '').toLowerCase();
+                const desc = (d.description || '').toLowerCase();
+                const cat = (d.category || '').toLowerCase();
+
+                return keywords.some(k =>
+                    name.includes(k) ||
+                    company.includes(k) ||
+                    desc.includes(k) ||
+                    cat.includes(k)
+                );
+            });
         }
 
-        // Check if company name appears in device name
-        if (deviceName.includes(companyLower)) {
-            return true;
-        }
+        // 2. Company Deduplication & Top Flagship Extraction
+        const companyMap = {};
 
-        // Check brand-specific keywords
-        const keywords = brandKeywords[companyLower] || [];
-        for (const keyword of keywords) {
-            if (deviceName.includes(keyword) || deviceCompany.includes(keyword)) {
-                return true;
+        matched.forEach(d => {
+            const companyName = (d.company || 'Unknown').trim();
+            const price = Number(d.expected_price || d.price || 0);
+
+            if (!companyMap[companyName]) {
+                companyMap[companyName] = d;
+            } else {
+                const currentFlagshipPrice = Number(companyMap[companyName].expected_price || companyMap[companyName].price || 0);
+                if (price > currentFlagshipPrice) {
+                    companyMap[companyName] = d;
+                }
+            }
+        });
+
+        let topFlagships = Object.values(companyMap).sort((a, b) => {
+            const priceA = Number(a.expected_price || a.price || 0);
+            const priceB = Number(b.expected_price || b.price || 0);
+            return priceB - priceA;
+        });
+
+        // 3. Enforce Cross-Category Diversity Requirements
+        if (!isMobileOnly && topFlagships.length > 0) {
+            const hasPhone = topFlagships.some(d => {
+                const c = (d.category || '').toLowerCase();
+                return c === 'smartphone' || c === 'foldable smartphone';
+            });
+            const hasLaptop = topFlagships.some(d => {
+                const c = (d.category || '').toLowerCase();
+                return c === 'laptop';
+            });
+
+            if (!hasPhone || !hasLaptop) {
+                const missingCategoryType = !hasPhone ? 'phone' : 'laptop';
+
+                const missingCategoryPool = matched.filter(d => {
+                    const c = (d.category || '').toLowerCase();
+                    return missingCategoryType === 'phone'
+                        ? (c === 'smartphone' || c === 'foldable smartphone')
+                        : (c === 'laptop');
+                }).sort((a, b) => {
+                    const priceA = Number(a.expected_price || a.price || 0);
+                    const priceB = Number(b.expected_price || b.price || 0);
+                    return priceB - priceA;
+                });
+
+                if (missingCategoryPool.length > 0) {
+                    const backfillDevice = missingCategoryPool[0];
+                    if (topFlagships.length >= 4) {
+                        topFlagships.pop(); // Remove lowest-ranking device if we are full
+                    } else if (topFlagships.length > 0) {
+                        topFlagships.pop(); // Still replace the lowest if array is small, to ensure swap. (Or we could just push if < 4, but user said "replace the lowest-ranking")
+                    }
+                    topFlagships.push(backfillDevice);
+
+                    topFlagships.sort((a, b) => {
+                        const priceA = Number(a.expected_price || a.price || 0);
+                        const priceB = Number(b.expected_price || b.price || 0);
+                        return priceB - priceA;
+                    });
+                }
             }
         }
 
-        return false;
-    };
-
-    // Prepare company slides (Phones)
-    const companySlides = allCompanies
-        .filter(company => company !== 'all')
-        .map(company => {
-            const companyDevices = phoneDevices.filter(d => deviceMatchesCompany(d, company));
-            return {
-                company,
-                devices: companyDevices
-            };
-        });
-    // .filter(group => group.devices.length > 0); // Keep all companies to show "Not Available" if empty
-
-    // Prepare laptop slides
-    const laptopSlides = allLaptopCompanies
-        .filter(company => company !== 'all')
-        .map(company => {
-            const companyDevices = laptopDevices.filter(d => deviceMatchesCompany(d, company));
-            return {
-                company,
-                devices: companyDevices
-            };
-        });
-
-    const handleCompanyDotClick = (index) => {
-        setCurrentCompanySlide(index);
-    };
-
-    const handleCompanyNext = () => {
-        setCurrentCompanySlide((prev) => (prev + 1) % companySlides.length);
-    };
-
-    const handleCompanyPrev = () => {
-        setCurrentCompanySlide((prev) => (prev - 1 + companySlides.length) % companySlides.length);
-    };
-
-    const handleLaptopCompanyDotClick = (index) => {
-        setCurrentLaptopCompanySlide(index);
-    };
-
-    const handleLaptopCompanyNext = () => {
-        setCurrentLaptopCompanySlide((prev) => (prev + 1) % laptopSlides.length);
-    };
-
-    const handleLaptopCompanyPrev = () => {
-        setCurrentLaptopCompanySlide((prev) => (prev - 1 + laptopSlides.length) % laptopSlides.length);
+        // 4. Clean Array Return
+        return topFlagships.slice(0, 4);
     };
 
     const slides = [
@@ -312,32 +316,22 @@ function MainPage() {
                 </div>
             </section>
 
-            {/* Phone Cards Section - Company Slider */}
-            <section className="phone-cards-container">
-                <div className="section-header">
-                    <h2 className="section-title">Browse Smartphones</h2>
-                </div>
-
-                {loadingDevices ? (
-                    <div className="products-loading">Loading products…</div>
-                ) : companySlides.length > 0 ? (
-                    <div className="company-slider-container">
-                        {companySlides.map((slide, index) => (
-                            <div
-                                key={slide.company}
-                                className={`company-slide ${currentCompanySlide === index ? 'active' : ''}`}
-                            >
-                                <div className="company-title-wrapper">
-                                    <h3 className="company-slide-title">{slide.company}</h3>
-                                    <div className="slide-navigation">
-                                        <button className="nav-btn prev" onClick={handleCompanyPrev}>❮</button>
-                                        <button className="nav-btn next" onClick={handleCompanyNext}>❯</button>
-                                    </div>
-                                </div>
-
-                                {slide.devices.length > 0 ? (
-                                    <div className="phone-cards-grid">
-                                        {slide.devices.slice(0, 8).map((d, deviceIndex) => (
+            {/* Lifestyle Personas Section */}
+            {lifestylePersonas.map((persona) => {
+                const matchedDevices = getDevicesForPersona(persona);
+                return (
+                    <section key={persona.id} className="persona-section stack-card">
+                        <div className="persona-layout-split">
+                            <div className="persona-anchor-side">
+                                <h2>{persona.title}</h2>
+                                <p>"{persona.quote}"</p>
+                            </div>
+                            <div className="persona-devices-side">
+                                {loadingDevices ? (
+                                    <div className="products-loading">Loading devices...</div>
+                                ) : matchedDevices.length > 0 ? (
+                                    <div className="persona-cards-grid">
+                                        {matchedDevices.map((d, deviceIndex) => (
                                             <CardComponent
                                                 key={d._id || deviceIndex}
                                                 _id={d._id}
@@ -357,98 +351,15 @@ function MainPage() {
                                     <div className="no-products-panel">
                                         <div className="no-products-content">
                                             <h3>Coming Soon</h3>
-                                            <p>We are currently stocking up on {slide.company} products.</p>
-                                            <p>Stay tuned for the latest releases!</p>
+                                            <p>We are sourcing the best gear for {persona.title}.</p>
                                         </div>
                                     </div>
                                 )}
                             </div>
-                        ))}
-
-                        <div className="company-slider-dots">
-                            {companySlides.map((_, index) => (
-                                <span
-                                    key={index}
-                                    className={`company-dot ${currentCompanySlide === index ? 'active' : ''}`}
-                                    onClick={() => handleCompanyDotClick(index)}
-                                    title={companySlides[index].company}
-                                ></span>
-                            ))}
                         </div>
-                    </div>
-                ) : (
-                    <div className="products-loading">No products found.</div>
-                )}
-            </section>
-
-            {/* Laptop Cards Section - Company Slider */}
-            <section className="laptop-cards-container">
-                <div className="section-header">
-                    <h2 className="section-title">Browse Laptops</h2>
-                </div>
-
-                {loadingDevices ? (
-                    <div className="products-loading">Loading laptops…</div>
-                ) : laptopSlides.length > 0 ? (
-                    <div className="company-slider-container">
-                        {laptopSlides.map((slide, index) => (
-                            <div
-                                key={slide.company}
-                                className={`company-slide ${currentLaptopCompanySlide === index ? 'active' : ''}`}
-                            >
-                                <div className="company-title-wrapper">
-                                    <h3 className="company-slide-title">{slide.company}</h3>
-                                    <div className="slide-navigation">
-                                        <button className="nav-btn prev" onClick={handleLaptopCompanyPrev}>❮</button>
-                                        <button className="nav-btn next" onClick={handleLaptopCompanyNext}>❯</button>
-                                    </div>
-                                </div>
-
-                                {slide.devices.length > 0 ? (
-                                    <div className="laptop-cards-grid">
-                                        {slide.devices.slice(0, 8).map((d, deviceIndex) => (
-                                            <CardComponent
-                                                key={d._id || deviceIndex}
-                                                _id={d._id}
-                                                name={d.name}
-                                                company={d.company}
-                                                price={Number(d.expected_price)}
-                                                description={d.description}
-                                                ram={d.ram}
-                                                storage={d.storage}
-                                                image={d.image_url || d.image}
-                                                stock={d.stock}
-                                                inStock={d.inStock}
-                                            />
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="no-products-panel">
-                                        <div className="no-products-content">
-                                            <h3>Coming Soon</h3>
-                                            <p>We are currently stocking up on {slide.company} laptops.</p>
-                                            <p>Stay tuned for the latest releases!</p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-
-                        <div className="company-slider-dots">
-                            {laptopSlides.map((_, index) => (
-                                <span
-                                    key={index}
-                                    className={`company-dot ${currentLaptopCompanySlide === index ? 'active' : ''}`}
-                                    onClick={() => handleLaptopCompanyDotClick(index)}
-                                    title={laptopSlides[index].company}
-                                ></span>
-                            ))}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="products-loading">No laptops found.</div>
-                )}
-            </section>
+                    </section>
+                );
+            })}
 
             <section className="main-footer-section">
                 <Footer />

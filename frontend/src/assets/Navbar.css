@@ -1,88 +1,99 @@
 /* ─────────────────────────────────────────
-    NAVBAR — RAZOR-SHARP MINIMAL UTILITY BAR
+    NAVBAR — WHITE IMMERSIVE GRID
 ───────────────────────────────────────── */
 
-/* Container positioning and transparency */
-.navbar-fixed-wrapper {
-  background: transparent !important;
-  top: 24px !important;
-}
-
-/* Outline SVG styling */
-.outline {
-  position: absolute;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-}
-.rect {
-  fill: #000000;
-  height: 100%;
-  transition: transform 0.3s ease, width 0.3s ease;
-}
-
-/* Button hover background */
-.btn {
-  background-color: transparent;
-}
-.btn:hover {
-  background-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-
+/* ── Layout Shell & Constraints ── */
 .navbar-fixed-wrapper {
   position: fixed;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 60px;
   z-index: 1000;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.277);
   pointer-events: none;
+  /* Let clicks pass through empty spaces */
+  box-sizing: border-box;
 }
 
+/* Let children capture clicks */
+.navbar-logo-text,
+.btn-container,
+.navbar-floating-search-form {
+  pointer-events: auto;
+
+}
+
+/* ── Branding Typography ── */
+.navbar-logo-text {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-text h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #0f172a;
+  margin: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Action Items (Right aligned group) ── */
 .btn-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
-  width: auto;
-  min-width: 168px;
-  height: 36px;
-  padding: 0 6px;
+  gap: 16px;
   background-color: transparent;
-  border: 1px solid #000000;
-  border-radius: 0 !important;
+  border: none;
+  outline: none;
+  border-radius: 0px !important;
   box-shadow: none;
-  pointer-events: auto;
 }
 
+/* ── Button Micro-Interactions ── */
 .btn {
-  outline: 0 !important;
-  border: 0 !important;
-  width: 28px;
-  height: 28px;
-  border-radius: 0 !important;
   background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000000;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  border: none !important;
+  outline: none !important;
+  padding: 8px 12px;
+  width: auto;
+  height: auto;
+  border-radius: 0px !important;
+  display: inline-block;
+  color: #0f172a !important;
   cursor: pointer;
+  transition: color 0.2s ease;
   position: relative;
+  overflow: visible;
   flex-shrink: 0;
-  padding: 0;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
-.btn:hover {
-  transform: none;
-  background-color: #000000;
-  color: #ffffff;
+.btn::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0f172a;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover::after {
+  transform: scaleX(1);
 }
 
 .btn-link-wrapper {
@@ -90,50 +101,46 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  flex-shrink: 0;
 }
 
-.icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-/* ── Floating inline search ── */
+/* ── Floating Inline Search ── */
 .navbar-floating-search-form {
-  pointer-events: auto;
-  animation: searchBarDrop 0.2s ease forwards;
+  position: absolute;
+  top: 60px;
+  /* Drop exactly below the navbar border */
+  right: 40px;
+  animation: searchBarDrop 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .navbar-inline-input {
-  width: 220px;
-  height: 32px;
-  border: 1px solid #000000;
-  border-radius: 0 !important;
-  padding: 0 12px;
+  width: 240px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: none;
+  border-radius: 0px !important;
+  padding: 0 16px;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
   outline: none;
-  background-color: transparent;
-  box-shadow: none;
-  color: #000000;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  color: #0f172a;
 }
 
 .navbar-inline-input::placeholder {
-  color: #666666;
+  color: #94a3b8;
 }
 
 .navbar-inline-input:focus {
-  border: 1px solid #000000;
-  outline: 1px solid #000000;
-  outline-offset: 0;
+  border: 1px solid #0f172a;
+  border-top: none;
 }
 
 @keyframes searchBarDrop {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-10px);
   }
 
   to {
@@ -142,7 +149,7 @@
   }
 }
 
-/* ── Cart micro-badge ── */
+/* ── Cart Micro-Badge ── */
 .cart-button-dock {
   position: relative;
   overflow: visible;
@@ -150,64 +157,55 @@
 
 .navbar-badge-counter {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #000000;
+  top: 0px;
+  right: 0px;
+  background: #0f172a;
   color: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 0 !important;
-  font-size: 8px;
+  border: none;
+  border-radius: 0px !important;
+  font-size: 9px;
   font-weight: 800;
   line-height: 1;
-  min-width: 14px;
-  height: 14px;
-  padding: 0 3px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: none;
   pointer-events: none;
 }
 
 @keyframes cartBounce {
+
   0%,
   100% {
     transform: scale(1);
   }
 
   50% {
-    transform: scale(1.08);
+    transform: scale(1.1);
   }
 }
 
 .cart-button-dock.add-animation {
-  animation: cartBounce 0.45s ease;
+  animation: cartBounce 0.4s ease;
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .navbar-fixed-wrapper {
-    top: 8px;
+    padding: 0 20px;
+  }
+
+  .navbar-logo-text h2 {
+    font-size: 1.25rem;
   }
 
   .btn-container {
-    height: 32px;
-    min-width: 152px;
-    padding: 0 4px;
+    gap: 8px;
   }
 
-  .btn {
-    width: 26px;
-    height: 26px;
-  }
-
-  .icon {
-    font-size: 15px;
-    width: 15px;
-    height: 15px;
-  }
-
-  .navbar-inline-input {
-    width: min(88vw, 220px);
-    height: 30px;
+  .navbar-floating-search-form {
+    right: 20px;
   }
 }

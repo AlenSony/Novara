@@ -1,11 +1,8 @@
 .footer-container {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100vw;
+    background: #ffffff;
+    border-top: 1px solid #000000;
     padding: 4rem 2rem 1rem;
-    margin-top: 4rem;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
     position: relative;
     z-index: 100;
 }
@@ -21,40 +18,29 @@
 
 .footer-section h3 {
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 900;
     margin-bottom: 1.5rem;
-    color: #1a237e;
-    position: relative;
-    display: inline-block;
-}
-
-.footer-section h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 40px;
-    height: 3px;
-    background: linear-gradient(90deg, #1F75FE, #00BFFF);
-    border-radius: 2px;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Brand Section */
 .footer-logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #1a237e, #1F75FE);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #0f172a;
     margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .footer-description {
-    color: #555;
+    color: #000000;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
+    font-weight: 600;
 }
 
 /* Social Icons */
@@ -66,22 +52,20 @@
 .social-icon {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    border: 1px solid #000000;
+    border-radius: 0px !important;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #1a237e;
+    color: #0f172a;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .social-icon:hover {
-    background: linear-gradient(135deg, #1F75FE, #0047AB);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(31, 117, 254, 0.3);
+    background: #0f172a;
+    color: #ffffff;
 }
 
 /* Links Section */
@@ -96,16 +80,35 @@
 }
 
 .links-section ul li a {
-    color: #555;
+    color: #000000;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: color 0.15s ease;
     font-size: 0.95rem;
+    font-weight: 600;
     display: inline-block;
+    position: relative;
+}
+
+.links-section ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0f172a;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.links-section ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 .links-section ul li a:hover {
-    color: #1F75FE;
-    transform: translateX(5px);
+    color: #0f172a;
 }
 
 /* Contact Section */
@@ -114,12 +117,13 @@
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 1rem;
-    color: #555;
+    color: #000000;
     font-size: 0.95rem;
+    font-weight: 600;
 }
 
 .contact-item i {
-    color: #1F75FE;
+    color: #0f172a;
     margin-top: 4px;
 }
 
@@ -127,57 +131,68 @@
 .newsletter-form {
     display: flex;
     margin-top: 1rem;
-    background: white;
-    border-radius: 30px;
-    padding: 5px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    padding: 0;
+    border: none;
+    box-shadow: none;
 }
 
 .newsletter-form input {
     flex: 1;
-    border: none;
+    border: 1px solid #000000;
+    border-right: none;
     padding: 10px 15px;
-    border-radius: 30px 0 0 30px;
+    border-radius: 0px !important;
     outline: none;
     font-size: 0.9rem;
     background: transparent;
+    color: #000000;
+    font-weight: 600;
+}
+
+.newsletter-form input::placeholder {
+    color: #666666;
+    font-weight: 500;
 }
 
 .newsletter-form button {
-    background: linear-gradient(135deg, #1F75FE, #0047AB);
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid #000000;
+    width: 44px;
+    height: auto;
+    border-radius: 0px !important;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .newsletter-form button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(31, 117, 254, 0.3);
+    background: #ffffff;
+    color: #0f172a;
 }
 
 /* Footer Bottom */
 .footer-bottom {
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #000000;
     padding-top: 2rem;
+    padding-bottom: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .footer-bottom p {
-    color: #666;
+    color: #0f172a;
     font-size: 0.9rem;
     margin: 0;
+    font-weight: 700;
 }
 
 .footer-bottom-links {
@@ -186,21 +201,22 @@
 }
 
 .footer-bottom-links a {
-    color: #666;
+    color: #0f172a;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease;
+    font-weight: 700;
 }
 
 .footer-bottom-links a:hover {
-    color: #1F75FE;
+    color: #000000;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
     }
     
     .footer-bottom {

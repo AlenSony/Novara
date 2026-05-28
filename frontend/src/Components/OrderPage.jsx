@@ -14,15 +14,15 @@ const api = (path, opts = {}) =>
 
 /* ── Status pill config ──────────────────────────────────────────────────── */
 const STATUS = {
-  pending: { label: "Pending Payment", color: "#f59e0b", bg: "rgba(245,158,11,0.1)", icon: "⏳" },
-  paid: { label: "Paid", color: "#10b981", bg: "rgba(16,185,129,0.1)", icon: "✅" },
-  shipped: { label: "Shipped", color: "#3b82f6", bg: "rgba(59,130,246,0.1)", icon: "🚚" },
-  delivered: { label: "Delivered", color: "#6366f1", bg: "rgba(99,102,241,0.1)", icon: "📦" },
-  cancelled: { label: "Cancelled", color: "#ef4444", bg: "rgba(239,68,68,0.1)", icon: "✕" },
+  pending: { label: "PENDING PAYMENT", color: "#f59e0b", bg: "rgba(245,158,11,0.1)" },
+  paid: { label: "PAID", color: "#10b981", bg: "rgba(16,185,129,0.1)" },
+  shipped: { label: "SHIPPED", color: "#3b82f6", bg: "rgba(59,130,246,0.1)" },
+  delivered: { label: "DELIVERED", color: "#6366f1", bg: "rgba(99,102,241,0.1)" },
+  cancelled: { label: "CANCELLED", color: "#ef4444", bg: "rgba(239,68,68,0.1)" },
 };
 
 function statusCfg(raw) {
-  return STATUS[String(raw).toLowerCase()] ?? { label: raw, color: "#888", bg: "rgba(0,0,0,0.06)", icon: "•" };
+  return STATUS[String(raw).toLowerCase()] ?? { label: String(raw).toUpperCase(), color: "#888", bg: "rgba(0,0,0,0.06)" };
 }
 
 function formatDate(dateStr) {
@@ -35,7 +35,7 @@ function formatDate(dateStr) {
 /* ── Single order card ───────────────────────────────────────────────────── */
 function OrderCard({ order, onPay }) {
   const [paying, setPaying] = useState(false);
-  const [expanded, setExpanded] = useState(true);
+
   const cfg = statusCfg(order.paymentStatus || order.payment_status);
   const isPending = (order.paymentStatus || order.payment_status) === "pending";
   const totalQty = (order.devices || []).reduce((s, d) => s + (d.quantity || 1), 0);
@@ -59,36 +59,25 @@ function OrderCard({ order, onPay }) {
           </div>
           <div className="order-meta">
             <span className="order-meta__item">
-              📅 {formatDate(order.orderDate || order.order_date)}
+              DATE: {formatDate(order.orderDate || order.order_date)}
             </span>
             <span className="order-meta__item">
-              🛒 {totalQty} item{totalQty !== 1 ? "s" : ""}
+              QTY: {totalQty} item{totalQty !== 1 ? "s" : ""}
             </span>
           </div>
         </div>
 
         <div className="order-card__header-right">
           {/* Status pill */}
-          <span
-            className="status-pill"
-            style={{ color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.color}40` }}
-          >
-            {cfg.icon} {cfg.label}
+          <span className="status-pill" style={{ color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.color}40` }}>
+            {cfg.label}
           </span>
 
-          {/* Expand toggle */}
-          <button
-            className="order-toggle-btn"
-            onClick={() => setExpanded(v => !v)}
-            aria-label="Toggle order details"
-          >
-            {expanded ? "▲" : "▼"}
-          </button>
+
         </div>
       </div>
 
-      {/* ── Expandable body ── */}
-      {expanded && (
+      {/* ── Static body ── */}
         <div className="order-card__body">
           {/* Items list */}
           <div className="order-items">
@@ -126,36 +115,11 @@ function OrderCard({ order, onPay }) {
 
             {isPending && (
               <button
-                className={`ord-pay-btn${paying ? " ord-pay-btn--loading" : ""}`}
+                className={`pay-now-btn${paying ? " pay-now-btn--loading" : ""}`}
                 onClick={handlePay}
                 disabled={paying}
               >
-                <span className="ord-btn-text">
-                  {paying ? "Processing…" : "Pay Now"}
-                </span>
-                <div className="ord-icon-container">
-                  {paying ? (
-                    <span className="pay-now-btn__spinner" style={{ marginLeft: "4px" }} />
-                  ) : (
-                    <>
-                      <svg viewBox="0 0 24 24" className="ord-icon ord-card-icon">
-                        <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18C2,19.11 2.89,20 4,20H20C21.11,20 22,19.11 22,18V6C22,4.89 21.11,4 20,4Z" fill="currentColor"></path>
-                      </svg>
-                      <svg viewBox="0 0 24 24" className="ord-icon ord-payment-icon">
-                        <path d="M2,17H22V21H2V17M6.25,7H9V6H6V3H18V6H15V7H17.75L19,17H5L6.25,7M9,10H15V8H9V10M9,13H15V11H9V13Z" fill="currentColor"></path>
-                      </svg>
-                      <svg viewBox="0 0 24 24" className="ord-icon ord-dollar-icon">
-                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="currentColor"></path>
-                      </svg>
-                      <svg viewBox="0 0 24 24" className="ord-icon ord-wallet-icon ord-default-icon">
-                        <path d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H12C10.89,6 10,6.9 10,8V16A2,2 0 0,0 12,18M12,16H22V8H12M16,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12A1.5,1.5 0 0,1 16,13.5Z" fill="currentColor"></path>
-                      </svg>
-                      <svg viewBox="0 0 24 24" className="ord-icon ord-check-icon">
-                        <path d="M9,16.17L4.83,12L3.41,13.41L9,19L21,7L19.59,5.59L9,16.17Z" fill="currentColor"></path>
-                      </svg>
-                    </>
-                  )}
-                </div>
+                {paying ? "PROCESSING…" : "PAY NOW"}
               </button>
             )}
 
@@ -164,12 +128,11 @@ function OrderCard({ order, onPay }) {
                 className="paid-badge"
                 style={{ color: cfg.color, background: cfg.bg }}
               >
-                {cfg.icon} {cfg.label}
+                {cfg.label}
               </span>
             )}
           </div>
         </div>
-      )}
     </article>
   );
 }
@@ -312,7 +275,7 @@ function OrderPage() {
             </p>
           </div>
           <Link to="/main" className="orders-shop-btn">
-            🛍 Continue Shopping
+            CONTINUE SHOPPING
           </Link>
         </div>
 
@@ -342,7 +305,7 @@ function OrderPage() {
         {/* ── Empty ── */}
         {orders.length === 0 ? (
           <div className="orders-empty">
-            <div className="orders-empty__icon">🛒</div>
+            <div className="orders-empty__icon">NO ORDERS</div>
             <h2 className="orders-empty__title">No orders yet</h2>
             <p className="orders-empty__sub">Looks like you haven't placed any orders. Start shopping!</p>
             <Link to="/main" className="pay-now-btn" style={{ textDecoration: "none" }}>
@@ -351,7 +314,7 @@ function OrderPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="orders-empty">
-            <div className="orders-empty__icon">🔍</div>
+            <div className="orders-empty__icon">NO RESULTS</div>
             <h2 className="orders-empty__title">No {filter} orders</h2>
             <p className="orders-empty__sub">You have no orders with this status.</p>
             <button className="pay-now-btn" onClick={() => setFilter("all")}>

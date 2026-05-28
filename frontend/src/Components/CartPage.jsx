@@ -127,7 +127,7 @@ function CartPage() {
                 {cartItems.length === 0 ? (
                     <div className="empty-cart">
                         <div className="empty-cart-icon">
-                            📦
+                            NO ITEMS FOUND
                         </div>
                         <h2>Your cart is empty</h2>
                         <p>Looks like you haven't added anything to your cart yet.</p>
@@ -226,25 +226,9 @@ function CartPage() {
                                     {new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                 </span>
                             </div>
-                            <div className="co-btn-wrapper" onClick={handleBuyNow}>
-                                <div className="co-left-side">
-                                    <div className="co-card">
-                                        <div className="co-card-line"></div>
-                                        <div className="co-buttons"></div>
-                                    </div>
-                                    <div className="co-post">
-                                        <div className="co-post-line"></div>
-                                        <div className="co-screen">
-                                            <div className="co-dollar">$</div>
-                                        </div>
-                                        <div className="co-numbers"></div>
-                                        <div className="co-numbers-line2"></div>
-                                    </div>
-                                </div>
-                                <div className="co-right-side">
-                                    <div className="co-new">Checkout</div>
-                                </div>
-                            </div>
+                            <button className="cartBtn checkout-btn" onClick={handleBuyNow}>
+                                CHECKOUT
+                            </button>
                             <Link to="/main" className="continue-shopping-btn small">
                                 ← Continue Shopping
                             </Link>

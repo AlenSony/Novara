@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="footer-container">
             <div className="footer-content">
                 <div className="footer-section brand-section">
-                    <h2 className="footer-logo">Novara E-Commerce</h2>
+                    <h2 className="footer-logo">NOVARA</h2>
                     <p className="footer-description">
                         Space for tech enthusiasts to buy their dream items.
 
@@ -50,7 +50,7 @@ const Footer = () => {
                     <p>Subscribe for latest updates and offers.</p>
                     <div className="newsletter-form">
                         <input type="email" placeholder="Enter your email" />
-                        <button type="button"><i className="fa fa-paper-plane"></i></button>
+                        <button type="button" className="footer-submit-btn" style={{fontWeight: 900, fontSize: "0.85rem", letterSpacing: "1px"}}>SUBMIT</button>
                     </div>
                 </div>
             </div>

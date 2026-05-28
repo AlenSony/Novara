@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════════════
-   SEARCH PAGE ENHANCEMENTS
+   SEARCH PAGE — WHITE IMMERSIVE GRID
    ══════════════════════════════════════════════════════════════════════════ */
 
 .search-page {
@@ -7,21 +7,7 @@
     min-height: 100vh;
     padding: 6rem 2rem 4rem;
     overflow: hidden;
-    background-color: #ffffff; /* Deep dark base */
-}
-
-/* Dynamic background glow */
-.search-bg-glow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(31, 117, 254, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(124, 39, 255, 0.1) 0%, transparent 40%);
-    pointer-events: none;
+    background-color: #ffffff; /* Pure white base */
 }
 
 .search-content-wrapper {
@@ -35,34 +21,30 @@
 .search-header-section {
     margin-bottom: 3rem;
     text-align: center;
-    animation: fadeInDown 0.8s ease-out;
 }
 
 .search-title {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #000000;
+    color: #0f172a;
     margin-bottom: 1rem;
     letter-spacing: -1px;
 }
 
 .query-highlight {
-    background: linear-gradient(135deg, #1F75FE, #7c27ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0f172a;
 }
 
 .results-badge {
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(14, 26, 103, 0.1);
-    border-radius: 50px;
-    color: #a0a0a0;
+    background: transparent;
+    border: 1px solid #000000;
+    border-radius: 0px !important;
+    color: #0f172a;
     font-size: 0.9rem;
-    font-weight: 500;
-    backdrop-filter: blur(5px);
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 /* ── Grid Layout ────────────────────────────────────────────────────────── */
@@ -74,24 +56,17 @@
 
 /* ── Modern Card Design ─────────────────────────────────────────────────── */
 .phone-card-modern {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    background: transparent;
+    border: 1px solid #000000;
+    border-radius: 0px !important;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: border-color 0.3s ease;
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(12px);
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .phone-card-modern:hover {
-    transform: translateY(-12px) scale(1.02);
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(31, 117, 254, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #6366f1; /* Brand Indigo Accent on hover */
 }
 
 /* Image Wrapper */
@@ -100,29 +75,26 @@
     width: 100%;
     height: 240px;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.02);
+    background: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     overflow: hidden;
+    border-radius: 0px !important;
 }
 
 .image-wrapper img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    transition: transform 0.5s ease;
-}
-
-.phone-card-modern:hover .image-wrapper img {
-    transform: scale(1.1) rotate(3deg);
 }
 
 .placeholder-img {
-    color: rgba(255, 255, 255, 0.2);
+    color: #0f172a;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* Stock Tags */
@@ -131,48 +103,42 @@
     top: 1rem;
     right: 1rem;
     padding: 0.4rem 1rem;
-    border-radius: 12px;
+    border-radius: 0px !important;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
 }
 
 .stock-tag.out {
-    background: rgba(255, 59, 48, 0.15);
-    color: #ff3b30;
-    border: 1px solid rgba(255, 59, 48, 0.3);
+    background: transparent;
+    color: #000000;
+    border: 1px dashed #000000;
 }
 
 /* Card Overlay */
 .card-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(31, 117, 254, 0.2);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    backdrop-filter: blur(2px);
 }
 
 .card-overlay span {
     padding: 0.8rem 1.5rem;
-    background: #fff;
-    color: #000;
-    border-radius: 50px;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 0px !important;
     font-weight: 700;
     font-size: 0.85rem;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
+    text-transform: uppercase;
 }
 
 .image-wrapper:hover .card-overlay {
     opacity: 1;
-}
-
-.image-wrapper:hover .card-overlay span {
-    transform: translateY(0);
 }
 
 /* Card Details */
@@ -186,7 +152,7 @@
 .brand-label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #1F75FE;
+    color: #0f172a;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
@@ -195,14 +161,14 @@
 .product-name {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #252628;
+    color: #000000;
     margin-bottom: 0.8rem;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .product-name:hover {
-    color: #1F75FE;
+    color: #0f172a;
 }
 
 .price-tag {
@@ -214,7 +180,7 @@
 
 .product-excerpt {
     font-size: 0.9rem;
-    color: #888;
+    color: #0f172a;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     display: -webkit-box;
@@ -229,108 +195,52 @@
     margin-top: auto;
 }
 
-/* From Uiverse.io by vinodjangid07 — Integrated & Enhanced */
+/* Button Refactor */
 .cartBtn {
     width: 100%;
     height: 52px;
-    border: none;
-    border-radius: 16px;
+    border: 1px solid #000000;
+    border-radius: 0px !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    color: white;
+    background-color: transparent;
+    color: #000000;
     font-weight: 700;
     font-size: 0.9rem;
-    position: relative;
-    background-color: #1F75FE;
-    box-shadow: 0 10px 20px rgba(31, 117, 254, 0.2);
-    transition: all 0.3s ease-in-out;
     cursor: pointer;
-    overflow: hidden;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.cart {
-    z-index: 2;
+    transition: all 0.2s ease;
 }
 
 .cartBtn:hover {
-    background-color: #0066ff;
-    box-shadow: 0 12px 24px rgba(31, 117, 254, 0.3);
+    background-color: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
 }
 
 .cartBtn:active {
-    transform: scale(0.96);
-}
-
-.product {
-    position: absolute;
-    width: 15px;
-    border-radius: 3px;
-    content: "";
-    left: 23px;
-    bottom: 23px;
-    opacity: 0;
-    z-index: 1;
-    fill: rgb(211, 211, 211);
-}
-
-.cartBtn:hover .product {
-    animation: slide-in-top 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@keyframes slide-in-top {
-    0% {
-        transform: translateY(-30px);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(0) rotate(-90deg);
-        opacity: 1;
-    }
-}
-
-.cartBtn:hover .cart {
-    animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@keyframes slide-in-left {
-    0% {
-        transform: translateX(-10px);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    background-color: #000000;
 }
 
 .cartBtn:disabled {
-    background: #888;
+    background: transparent;
+    color: #cccccc;
+    border-color: #cccccc;
     cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.7;
-}
-
-.cartBtn:disabled .cart,
-.cartBtn:disabled .product {
-    display: none;
 }
 
 .stock-message {
     width: 100%;
     padding: 0.8rem;
-    background: rgba(255, 59, 48, 0.05);
-    color: #ff3b30;
+    background: transparent;
+    color: #000000;
     text-align: center;
-    border-radius: 16px;
+    border-radius: 0px !important;
     font-weight: 700;
     font-size: 0.9rem;
-    border: 1px dashed rgba(255, 59, 48, 0.3);
+    border: 1px dashed #000000;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -342,7 +252,7 @@
     align-items: center;
     justify-content: center;
     padding: 8rem 0;
-    color: #888;
+    color: #0f172a;
 }
 
 .modern-spinner {
@@ -360,10 +270,10 @@
     width: 64px;
     height: 64px;
     margin: 8px;
-    border: 6px solid #1F75FE;
-    border-radius: 50%;
+    border: 6px solid #0f172a;
+    border-radius: 0px !important;
     animation: modern-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #1F75FE transparent transparent transparent;
+    border-color: #0f172a transparent transparent transparent;
 }
 
 .modern-spinner div:nth-child(1) { animation-delay: -0.45s; }
@@ -380,69 +290,45 @@
     max-width: 600px;
     margin: 4rem auto;
     padding: 4rem 2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 32px;
+    background: transparent;
+    border: 1px solid #000000;
+    border-radius: 0px !important;
     text-align: center;
-    backdrop-filter: blur(10px);
-    animation: fadeInUp 0.8s ease-out;
 }
 
 .no-results-icon {
     font-size: 4rem;
     margin-bottom: 1.5rem;
-    filter: drop-shadow(0 0 20px rgba(31, 117, 254, 0.3));
 }
 
 .no-results-card h2 {
     font-size: 2rem;
-    color: #fff;
+    color: #0f172a;
     margin-bottom: 1rem;
+    font-weight: 800;
 }
 
 .no-results-card p {
-    color: #888;
+    color: #0f172a;
     line-height: 1.6;
     margin-bottom: 2.5rem;
 }
 
 .back-home-btn {
     padding: 1rem 2.5rem;
-    background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 50px;
+    background: transparent;
+    color: #0f172a;
+    border: 1px solid #0f172a;
+    border-radius: 0px !important;
     font-weight: 700;
+    text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .back-home-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-}
-
-/* ── Animations ─────────────────────────────────────────────────────────── */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    background: #0f172a;
+    color: #ffffff;
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
@@ -463,10 +349,6 @@
     
     .search-title {
         font-size: 1.8rem;
-    }
-    
-    .phone-card-modern {
-        border-radius: 20px;
     }
     
     .image-wrapper {

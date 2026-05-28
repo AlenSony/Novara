@@ -51,12 +51,16 @@
 .cta {
   border: none;
   padding: 0.7rem 0.2rem;
-  background: none;
+  background: transparent;
   box-shadow: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.cta:hover {
+  background: transparent !important;
 }
 
 .cta span {

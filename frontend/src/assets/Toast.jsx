@@ -19,13 +19,21 @@ export function ToastProvider({ children }) {
       <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8 }}>
         {toasts.map((t) => (
           <div key={t.id} style={{
-            padding: '10px 14px',
-            borderRadius: 8,
-            color: '#111',
-            background: t.type === 'error' ? '#fecaca' : t.type === 'success' ? '#bbf7d0' : '#e5e7eb',
-            border: '1px solid rgba(0,0,0,0.15)',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.15)'
+            padding: '14px 20px',
+            borderRadius: 0,
+            color: t.type === 'error' ? '#ffffff' : '#0f172a',
+            background: t.type === 'error' ? '#000000' : '#ffffff',
+            border: '2px solid #000000',
+            boxShadow: 'none',
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 900,
+            textTransform: 'uppercase',
+            fontSize: '0.85rem',
+            letterSpacing: '1px'
           }}>
+            <span style={{ marginRight: '8px', opacity: 0.8 }}>
+              {t.type === 'error' ? 'ERROR :' : t.type === 'success' ? 'SUCCESS :' : 'INFO :'}
+            </span>
             {t.message}
           </div>
         ))}
