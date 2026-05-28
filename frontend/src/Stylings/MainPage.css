@@ -15,40 +15,61 @@
    PAGE SHELL
    ════════════════════════════════════════════════════════════════════════════ */
 .container {
-    width: 100%;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     overflow-x: hidden;
-    background: linear-gradient(135deg, #6f6e6e 0%, #ffffff 100%);
+    overflow-y: auto;
+    background: #ffffff;
     font-family: 'Inter', sans-serif;
     scroll-behavior: smooth;
-}
-
-/* From Uiverse.io by kencode7 */
-.container {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom,
-            #fff 0%,
-            #fff 40%,
-            rgba(255, 255, 255, 0) 100%),
-        linear-gradient(to right, #0ed2da, #5f29c7);
     position: relative;
-    overflow: hidden;
+    scroll-snap-type: y mandatory;
 }
 
 .container::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(90deg, #ccc 1px, transparent 1px);
-    background-size: 50px 100%;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 56px 56px;
     pointer-events: none;
-    mask-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0) 70%);
-    -webkit-mask-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0) 70%);
+    z-index: 0;
+}
+
+.stack-card {
+    width: 100vw;
+    min-width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: sticky;
+    top: 0;
+    border: 1px solid #000000;
+    border-radius: 0;
+    background: transparent;
+}
+
+.stack-card--landing {
+    z-index: 10;
+}
+
+.stack-card--releases {
+    z-index: 20;
+}
+
+.main-footer-section {
+    position: relative;
+    z-index: 60;
+    width: 100vw;
+    min-height: 30vh;
+    background: #ffffff;
+    border-top: 1px solid #000000;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 
@@ -78,33 +99,31 @@
    LANDING PAGE SECTION
    ════════════════════════════════════════════════════════════════════════════ */
 .landing-page-container {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6rem 2rem 2rem;
+    padding: 0;
     overflow: hidden;
     background-color: transparent;
+    position: relative;
+    z-index: 10;
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
    NEW RELEASES SLIDESHOW
    ════════════════════════════════════════════════════════════════════════════ */
 .container .new-releases-section {
-    width: 90%;
-    max-width: 1320px;
-    height: 680px;
-    margin: 3rem auto;
-    padding: 3.5rem;
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(255, 255, 255, 0.25) inset;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    width: 100vw;
+    max-width: none;
+    height: 100vh;
+    margin: 0;
+    padding: 6rem 3rem 2.75rem;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -112,17 +131,8 @@
     justify-content: center;
 }
 
-/* Decorative background glow */
 .container .new-releases-section::before {
-    content: '';
-    position: absolute;
-    top: -40%;
-    left: -15%;
-    width: 130%;
-    height: 130%;
-    background: radial-gradient(ellipse at 30% 50%, rgba(31, 117, 254, 0.1) 0%, transparent 65%);
-    pointer-events: none;
-    z-index: 0;
+    content: none;
 }
 
 /* Slide fade transitions */
@@ -343,18 +353,19 @@
 .phone-cards-container,
 .laptop-cards-container {
     margin: 3rem auto;
-    padding: 3rem 2.5rem;
-    max-width: 1320px;
+    padding: 6.5rem 2.5rem 2rem;
+    max-width: none;
     width: 90%;
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.08),
-        0 0 0 1px rgba(255, 255, 255, 0.25) inset;
-    background: rgba(255, 255, 255, 0.28);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    height: auto;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
     overflow: visible;
+    position: relative;
+    z-index: 30;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 /* Section header row */
@@ -383,8 +394,9 @@
 .company-slider-container {
     position: relative;
     width: 100%;
-    overflow: visible;
-    padding-bottom: 3rem;
+    overflow: hidden;
+    padding-bottom: 2rem;
+    max-height: calc(100vh - 12rem);
 }
 
 .company-slide {
@@ -394,6 +406,8 @@
 
 .company-slide.active {
     display: block;
+    height: 100%;
+    overflow: auto;
 }
 
 @keyframes fadeSlideIn {
@@ -501,188 +515,162 @@
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   PRODUCT CARD  (ComponentCard → .component_contrainer)
+   PRODUCT CARD  (ComponentCard → Neo-Brutalist)
    ════════════════════════════════════════════════════════════════════════════ */
-.component_contrainer {
+.brutalist-card {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.68);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    padding: 0;
-    overflow: hidden;
     position: relative;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.07),
-        0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-    transition:
-        transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 #000;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.component_contrainer:hover {
-    transform: translateY(-6px);
-    box-shadow:
-        0 16px 40px rgba(0, 0, 0, 0.12),
-        0 0 0 1.5px rgba(31, 117, 254, 0.25) inset;
-    border-color: rgba(31, 117, 254, 0.2);
+.brutalist-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 12px 12px 0 #000;
 }
 
-/* Image area */
-.component_contrainer img {
+.brutalist-card__media {
+    position: relative;
     width: 100%;
-    height: 200px;
+    border-bottom: 2px solid #000;
+    background: #f4f6f8;
+}
+
+.brutalist-card img {
+    width: 100%;
+    height: 210px;
     object-fit: contain;
-    background: linear-gradient(145deg, #f8faff, #eef2ff);
-    padding: 1.5rem;
+    padding: 1.2rem;
     display: block;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    flex-shrink: 0;
 }
 
-.component_contrainer:hover img {
-    transform: scale(1.06) translateY(-4px);
+.brutalist-card__header {
+    padding: 0.95rem 1rem 0.75rem;
+    border-bottom: 2px solid #000;
+    text-align: left;
 }
 
-/* Card body */
-.component_header {
-    padding: 1rem 1.2rem 0.4rem;
-    text-align: center;
-}
-
-.component_header h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1a1a2e;
+.brutalist-card__header h2 {
     margin: 0 0 4px;
-    line-height: 1.3;
+    font-size: 0.98rem;
+    line-height: 1.25;
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: color 0.2s ease;
 }
 
-.component_contrainer:hover .component_header h2 {
-    color: #1F75FE;
-}
-
-.component_header p {
-    font-size: 0.78rem;
-    color: #1F75FE;
+.brutalist-card__header p {
     margin: 0;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-/* Price */
-.component_price {
-    padding: 0.5rem 1.2rem 0.8rem;
-    text-align: center;
-}
-
-.component_price p {
-    font-size: 1.3rem;
+    font-size: 0.74rem;
+    color: #000;
     font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.brutalist-card__message {
+    padding: 0.8rem 1rem 0.95rem;
+    border-bottom: 2px solid #000;
+    color: #000;
+}
+
+.brutalist-card__message p {
     margin: 0;
-    background: linear-gradient(135deg, #1a237e, #1F75FE);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.83rem;
+    line-height: 1.45;
 }
 
-/* Description — hidden by default, shown on hover */
-.component_description {
-    padding: 0 1.2rem;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    font-size: 0.82rem;
-    line-height: 1.5;
-    color: #666;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+.brutalist-card__price {
+    margin-bottom: 0.5rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 900 !important;
 }
 
-/* Buttons row */
-.component_buttons {
+.brutalist-card__actions {
+    margin-top: auto;
     display: flex;
     gap: 0.7rem;
-    padding: 0.8rem 1.2rem 1.2rem;
-    margin-top: auto;
+    padding: 0.9rem 1rem 1rem;
 }
 
-.component_add-to-cart-button,
-.component_buy-button {
+.brutalist-card__action {
     flex: 1;
     display: flex;
 }
 
-.component_add-to-cart-button button,
-.component_buy-button button {
-    flex: 1;
-    padding: 0.7rem 0.5rem;
-    border: none;
-    border-radius: 12px;
-    font-size: 0.83rem;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
+.brutalist-card__button {
+    width: 100%;
+    padding: 0.68rem 0.45rem;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-.component_add-to-cart-button button {
-    background: rgba(31, 117, 254, 0.08);
-    color: #1F75FE;
-    border: 1.5px solid rgba(31, 117, 254, 0.3);
-}
-
-.component_add-to-cart-button button:hover:not(:disabled) {
-    background: rgba(31, 117, 254, 0.14);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(31, 117, 254, 0.2);
-}
-
-.component_buy-button button {
-    background: linear-gradient(135deg, #1F75FE 0%, #00BFFF 100%);
+.brutalist-card__button:hover:not(:disabled) {
+    background: #296fbb;
     color: #fff;
-    box-shadow: 0 3px 10px rgba(31, 117, 254, 0.35);
+    border-color: #123e73;
+    box-shadow: 4px 4px 0 #123e73;
 }
 
-.component_buy-button button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(31, 117, 254, 0.5);
+.brutalist-card__button--read {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    box-shadow: 4px 4px 0 #000;
 }
 
-.component_add-to-cart-button button:disabled,
-.component_buy-button button:disabled {
+.brutalist-card__button--read:hover:not(:disabled) {
+    background: #ff0000;
+    color: #fff;
+    border-color: #8b0000;
+    box-shadow: 4px 4px 0 #8b0000;
+}
+
+.brutalist-card__button:active:not(:disabled),
+.brutalist-card__button--read:active:not(:disabled) {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.brutalist-card__button:disabled,
+.brutalist-card__button--read:disabled {
     opacity: 0.55;
     cursor: not-allowed;
-    transform: none !important;
 }
 
 /* Out of Stock Stylings */
-.image_wrapper {
-    position: relative;
-    width: 100%;
-}
 
 .out_of_stock_overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: #000;
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 700;
+    border: 2px solid #fff;
+    padding: 0.55rem 1rem;
+    border-radius: 0;
+    font-weight: 900;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     letter-spacing: 1px;
     pointer-events: none;
     z-index: 2;
@@ -690,14 +678,14 @@
 
 .out_of_stock_message {
     width: 100%;
-    padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.05);
-    color: #666;
+    padding: 0.75rem;
+    background: #f2f2f2;
+    color: #000;
     text-align: center;
-    border-radius: 12px;
-    font-weight: 600;
+    border: 2px solid #000;
+    font-weight: 800;
     font-size: 0.85rem;
-    border: 1px dashed rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -771,10 +759,9 @@
     }
 
     .container .new-releases-section {
-        width: 94%;
-        height: auto;
-        padding: 2.5rem 1.5rem;
-        margin: 2rem auto;
+        width: 100vw;
+        height: 100vh;
+        padding: 5.6rem 1.4rem 1.4rem;
     }
 
     .slide-content-wrapper {
@@ -804,8 +791,9 @@
     .phone-cards-container,
     .laptop-cards-container {
         width: 94%;
-        padding: 2rem 1.2rem;
-        border-radius: 20px;
+        height: auto;
+        padding: 5.6rem 1.2rem 1rem;
+        border-radius: 0;
     }
 
     .phone-cards-grid,
@@ -822,15 +810,15 @@
         font-size: 1.4rem;
     }
 
-    .component_contrainer img {
+    .brutalist-card img {
         height: 160px;
     }
 
-    .component_header h2 {
+    .brutalist-card__header h2 {
         font-size: 0.9rem;
     }
 
-    .component_price p {
+    .brutalist-card__price {
         font-size: 1.1rem;
     }
 }
@@ -843,18 +831,18 @@
         gap: 1rem;
     }
 
-    .component_contrainer img {
+    .brutalist-card img {
         height: 130px;
         padding: 1rem;
     }
 
-    .component_buttons {
+    .brutalist-card__actions {
         flex-direction: column;
         gap: 0.5rem;
     }
 
-    .component_add-to-cart-button button,
-    .component_buy-button button {
+    .brutalist-card__button,
+    .brutalist-card__button--read {
         font-size: 0.78rem;
     }
 

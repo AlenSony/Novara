@@ -1,0 +1,210 @@
+.landing-hero-card {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("https://www.apple.com/v/iphone/switch/n/images/overview/privacy__d6z9nonf4lme_large_2x.jpg?utm_source=Pinterest&utm_medium=organic");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7rem 1.2rem 2rem;
+}
+
+.landing-hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.landing-content-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-container {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: 640px;
+  width: min(92vw, 640px);
+}
+
+.cta {
+  border: none;
+  padding: 0.7rem 0.2rem;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta span {
+  padding-bottom: 2px;
+  letter-spacing: 2px;
+  font-size: 14px;
+  padding-right: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.cta svg {
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.cta:hover svg {
+  transform: translateX(0);
+}
+
+.cta:active svg {
+  transform: scale(0.9);
+}
+
+.hover-underline-animation {
+  position: relative;
+  color: #000;
+  padding-bottom: 8px;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.card {
+  --bg-color: transparent;
+  background-color: var(--bg-color);
+  padding: 0;
+  border-radius: 0;
+}
+
+.loader {
+  color: #111;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 2.1vw, 28px);
+  box-sizing: content-box;
+  height: 42px;
+  padding: 4px 8px;
+  display: flex;
+  border-radius: 0;
+}
+
+.words {
+  overflow: hidden;
+  position: relative;
+}
+
+.words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--bg-color) 10%, transparent 30%, transparent 70%, var(--bg-color) 90%);
+  z-index: 20;
+}
+
+.word {
+  display: block;
+  height: 100%;
+  padding-left: 6px;
+  color: #1f5fa6;
+  animation: spin_4991 4s infinite;
+}
+
+@keyframes spin_4991 {
+  10% {
+    -webkit-transform: translateY(-102%);
+    transform: translateY(-102%);
+  }
+
+  25% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+
+  35% {
+    -webkit-transform: translateY(-202%);
+    transform: translateY(-202%);
+  }
+
+  50% {
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+  }
+
+  60% {
+    -webkit-transform: translateY(-302%);
+    transform: translateY(-302%);
+  }
+
+  75% {
+    -webkit-transform: translateY(-300%);
+    transform: translateY(-300%);
+  }
+
+  85% {
+    -webkit-transform: translateY(-402%);
+    transform: translateY(-402%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-400%);
+    transform: translateY(-400%);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .landing-hero-card {
+    padding-top: 5.5rem;
+  }
+
+  .cta-container {
+    bottom: 6%;
+    width: min(94vw, 560px);
+    padding: 0;
+  }
+
+  .loader {
+    height: 34px;
+    font-size: clamp(13px, 4vw, 20px);
+  }
+
+  .cta span {
+    font-size: 12px;
+  }
+}

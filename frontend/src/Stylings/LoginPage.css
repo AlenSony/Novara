@@ -1,0 +1,385 @@
+/* ─────────────────────────────────────────
+    LOGIN PAGE — WHITE IMMERSIVE THEME
+───────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+}
+
+/* ── Layout & Background Settings ──────── */
+.auth-root {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  overflow: hidden;
+  padding: 0;
+}
+
+.novara-logo {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  z-index: 20;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  color: #0f172a;
+  line-height: 1;
+  user-select: none;
+}
+
+.auth-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.auth-blob-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  top: -120px;
+  left: -120px;
+}
+.auth-blob-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(14,165,233,0.10) 0%, transparent 70%);
+  bottom: -80px;
+  right: -80px;
+}
+.auth-blob-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%);
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.auth-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Center Container Layout ───────────── */
+.main-interactive-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 520px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* ── Integrated Error Styles ────────────── */
+.error-wrapper-space {
+  min-height: 45px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-inline-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fef2f2;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: #ef4444;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
+  width: 100%;
+  justify-content: center;
+}
+
+.error-dot-indicator {
+  width: 6px;
+  height: 6px;
+  background: #ef4444;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Uiverse Theme Custom Overrides ─────── */
+.wrapper {
+  --input-focus: #2d8cf0;
+  --font-color: #323232;
+  --font-color-sub: #64748b;
+  --bg-color: #ffffff;
+  --main-color: #0f172a;
+  width: 100%;
+}
+
+.card-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Toggle Switch Structural Anchor */
+.switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 20px;
+  margin-top: 0;
+  margin-bottom: 22px;
+  cursor: pointer;
+}
+
+.card-side::before {
+  position: absolute;
+  content: 'Log in';
+  left: -75px;
+  top: 0px;
+  width: 65px;
+  text-decoration: underline;
+  color: var(--font-color);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+}
+
+.card-side::after {
+  position: absolute;
+  content: 'Sign up';
+  left: 60px;
+  top: 0px;
+  width: 65px;
+  text-decoration: none;
+  color: var(--font-color);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+}
+
+.toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg-color);
+  transition: 0.3s;
+}
+
+.slider:before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  border: 2px solid var(--main-color);
+  border-radius: 5px;
+  left: -2px;
+  bottom: 2px;
+  background-color: var(--bg-color);
+  box-shadow: 0 3px 0 var(--main-color);
+  transition: 0.3s;
+}
+
+.toggle:checked + .slider {
+  background-color: var(--input-focus);
+}
+
+.toggle:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+.toggle:checked ~ .card-side::before {
+  text-decoration: none;
+}
+
+.toggle:checked ~ .card-side::after {
+  text-decoration: underline;
+}
+
+/* ── Flipping Engine Layout Setup ───────── */
+.flip-card__inner {
+  position: relative; /* Prevents container from collapsing down to 0px */
+  width: 100%;
+  max-width: 430px;
+  min-height: 530px;
+  height: 530px;
+  perspective: 1000px;
+  text-align: center;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Triggers 3D flipping based on our React state class toggle */
+.flip-card__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card__front,
+.flip-card__back {
+  padding: 42px 34px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 2px solid var(--main-color);
+  box-shadow: 5px 5px var(--main-color);
+}
+
+.flip-card__back {
+  transform: rotateY(180deg);
+}
+
+.flip-card__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px; /* Row element spacing */
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--main-color);
+  letter-spacing: -0.5px;
+  /* Hard-removed all animation/transitions on headers */
+  transition: none !important;
+  animation: none !important;
+}
+
+.portal-context {
+  margin-bottom: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.flip-card__input {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 0 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.flip-card__input::placeholder {
+  color: #94a3b8;
+  opacity: 0.8;
+}
+
+.flip-card__input:focus {
+  border: 2px solid var(--input-focus);
+}
+
+/* ── Interactive Form Buttons ────────────── */
+.flip-card__btn {
+  margin-top: 18px;
+  width: 100%;
+  max-width: 170px;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--font-color);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.flip-card__btn:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(4px, 4px);
+}
+
+.flip-card__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(4px, 4px);
+}
+
+/* ── Mobile Layout Optimization ──────────── */
+@media (max-width: 480px) {
+  .novara-logo {
+    top: 18px;
+    left: 16px;
+    font-size: 20px;
+    letter-spacing: 1.6px;
+  }
+
+  .main-interactive-container {
+    max-width: 340px;
+    padding: 0 10px;
+  }
+  .flip-card__inner {
+    max-width: 320px;
+    min-height: 430px;
+    height: 430px;
+  }
+  .flip-card__front, 
+  .flip-card__back {
+    padding: 28px 18px;
+    gap: 12px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .portal-context {
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+  .card-side::before { left: -68px; width: 55px; font-size: 13px; }
+  .card-side::after { left: 58px; width: 55px; font-size: 13px; }
+}

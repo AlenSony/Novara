@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^1.12.2",
     "font-awesome": "^4.7.0",
+    "framer-motion": "^12.38.0",
     "gsap": "^3.13.0",
     "ogl": "^1.0.11",
     "razorpay": "^2.9.6",

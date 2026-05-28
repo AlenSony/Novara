@@ -96,27 +96,25 @@ function CardComponent({ _id, name, company, price, description, ram, storage, i
 
     return (
         <>
-            <div className="component_contrainer" onClick={handleCardClick}>
-                <div className="image_wrapper">
+            <div className="brutalist-card" onClick={handleCardClick}>
+                <div className="brutalist-card__media">
                     <img src={image} alt={name} />
                     {isOutOfStock && <div className="out_of_stock_overlay">Out of Stock</div>}
                 </div>
-                <div className="component_header">
+                <div className="brutalist-card__header">
                     <h2>{name}</h2>
                     <p>{company}</p>
                 </div>
-                <div className="component_price">
-                    <p>₹{price}</p>
-                </div>
-                <div className="component_description">
+                <div className="brutalist-card__message">
+                    <p className="brutalist-card__price">₹{price}</p>
                     <p>{description || 'No description available'}</p>
                 </div>
-                <div className="component_buttons">
+                <div className="brutalist-card__actions">
                     {!isOutOfStock ? (
                         <>
-                            <div className="component_add-to-cart-button">
+                            <div className="brutalist-card__action">
                                 <button
-                                    className="cartBtn"
+                                    className="brutalist-card__button"
                                     onClick={handleAddToCart}
                                     data-product-id={_id}
                                     disabled={isAddingToCart}
@@ -127,8 +125,14 @@ function CardComponent({ _id, name, company, price, description, ram, storage, i
                                     {isAddingToCart ? 'ADDING...' : 'ADD TO CART'}
                                 </button>
                             </div>
-                            <div className="component_buy-button">
-                                <button onClick={handleBuyNow}>Buy Now</button>
+                            <div className="brutalist-card__action">
+                                <button
+                                    className="brutalist-card__button brutalist-card__button--read"
+                                    onClick={handleBuyNow}
+                                    disabled={isOutOfStock}
+                                >
+                                    Buy Now
+                                </button>
                             </div>
                         </>
                     ) : (

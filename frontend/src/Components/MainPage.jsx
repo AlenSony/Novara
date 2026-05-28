@@ -271,12 +271,12 @@ function MainPage() {
             <NavBar />
 
             {/* Landing Page Section - First section visible when page loads */}
-            <div className="landing-page-container">
+            <section className="landing-page-container stack-card stack-card--landing">
                 <LandingPage onExploreClick={scrollToNewReleases} />
-            </div>
+            </section>
 
             {/* New Releases Section - Can be scrolled to or accessed via Explore button */}
-            <div id="new-releases-section" className="new-releases-section">
+            <section id="new-releases-section" className="new-releases-section stack-card stack-card--releases">
                 {slides.map((slide, index) => (
                     <div key={index} className={`content-container ${currentSlide === index ? 'active' : ''}`}>
                         <div className="content-title">
@@ -310,10 +310,10 @@ function MainPage() {
                         ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Phone Cards Section - Company Slider */}
-            <div className="phone-cards-container">
+            <section className="phone-cards-container">
                 <div className="section-header">
                     <h2 className="section-title">Browse Smartphones</h2>
                 </div>
@@ -379,10 +379,10 @@ function MainPage() {
                 ) : (
                     <div className="products-loading">No products found.</div>
                 )}
-            </div>
+            </section>
 
             {/* Laptop Cards Section - Company Slider */}
-            <div className="laptop-cards-container">
+            <section className="laptop-cards-container">
                 <div className="section-header">
                     <h2 className="section-title">Browse Laptops</h2>
                 </div>
@@ -448,8 +448,11 @@ function MainPage() {
                 ) : (
                     <div className="products-loading">No laptops found.</div>
                 )}
-            </div>
-            <Footer/>
+            </section>
+
+            <section className="main-footer-section">
+                <Footer />
+            </section>
 
         </div>
     )

@@ -6,10 +6,10 @@ import dotenv from "dotenv";
 import express from "express";
 import jwt from "jsonwebtoken";
 import Razorpay from "razorpay";
-import dbConnect from "../database/db.js";
-import Device from "../models/device.js";
-import Order from "../models/order.js";
-import User from "../models/user.js";
+import dbConnect from "./database/db.js";
+import Device from "./models/device.js";
+import Order from "./models/order.js";
+import User from "./models/user.js";
 
 dotenv.config();
 
