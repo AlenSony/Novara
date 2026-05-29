@@ -43,10 +43,19 @@
     height: 100vh;
     min-height: 100vh;
     overflow: hidden;
-    position: relative;
+    position: sticky;
+    top: 0;
     border: 1px solid #000000;
     border-radius: 0;
-    background: transparent;
+    background: #ffffff;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    transform-origin: top center;
+    will-change: transform, filter;
+}
+
+.stack-card.is-stacked {
+    transform: scale(0.95);
+    filter: brightness(0.85);
 }
 
 .stack-card--landing {
@@ -100,7 +109,7 @@
     justify-content: center;
     padding: 0;
     overflow: hidden;
-    background-color: transparent;
+    background-color: #ffffff;
     position: relative;
     z-index: 10;
 }
@@ -117,7 +126,7 @@
     border-radius: 0px !important;
     border: none;
     box-shadow: none;
-    background: transparent;
+    background: #ffffff;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -332,9 +341,6 @@
     justify-content: center;
     background: #ffffff;
     border-top: 1px solid #000000;
-    
-    position: sticky;
-    top: 0;
 }
 
 .persona-layout-split {

@@ -26,6 +26,34 @@ function MainPage() {
         return () => clearInterval(interval);
     }, []);
 
+    // Sticky Stacking Cards Animation Logic
+    useEffect(() => {
+        const container = document.querySelector('.container');
+        if (!container) return;
+
+        const handleScroll = () => {
+            const cards = document.querySelectorAll('.stack-card');
+            const viewportHeight = window.innerHeight;
+            
+            cards.forEach((card, idx) => {
+                const nextCard = cards[idx + 1];
+                if (nextCard) {
+                    const nextRect = nextCard.getBoundingClientRect();
+                    // Trigger stack effect when the next card is 15% into the viewport
+                    if (nextRect.top < viewportHeight * 0.85) {
+                        card.classList.add('is-stacked');
+                    } else {
+                        card.classList.remove('is-stacked');
+                    }
+                }
+            });
+        };
+        
+        handleScroll();
+        container.addEventListener('scroll', handleScroll, { passive: true });
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
+
     useEffect(() => {
         const fetchDevices = async () => {
             try {
@@ -275,12 +303,12 @@ function MainPage() {
             <NavBar />
 
             {/* Landing Page Section - First section visible when page loads */}
-            <section className="landing-page-container stack-card stack-card--landing">
+            <section className="landing-page-container stack-card stack-card--landing" style={{ zIndex: 1 }}>
                 <LandingPage onExploreClick={scrollToNewReleases} />
             </section>
 
             {/* New Releases Section - Can be scrolled to or accessed via Explore button */}
-            <section id="new-releases-section" className="new-releases-section stack-card stack-card--releases">
+            <section id="new-releases-section" className="new-releases-section stack-card stack-card--releases" style={{ zIndex: 2 }}>
                 {slides.map((slide, index) => (
                     <div key={index} className={`content-container ${currentSlide === index ? 'active' : ''}`}>
                         <div className="content-title">
@@ -317,10 +345,10 @@ function MainPage() {
             </section>
 
             {/* Lifestyle Personas Section */}
-            {lifestylePersonas.map((persona) => {
+            {lifestylePersonas.map((persona, index) => {
                 const matchedDevices = getDevicesForPersona(persona);
                 return (
-                    <section key={persona.id} className="persona-section stack-card">
+                    <section key={persona.id} className="persona-section stack-card" style={{ zIndex: 3 + index }}>
                         <div className="persona-layout-split">
                             <div className="persona-anchor-side">
                                 <h2>{persona.title}</h2>
